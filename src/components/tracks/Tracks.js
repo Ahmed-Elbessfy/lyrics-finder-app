@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Track from "./Track";
 import { Consumer } from "../../Context";
 import Spinner from "../layout/Spinner";
 
@@ -16,7 +17,9 @@ class Tracks extends Component {
                 <h3 className="text-center mb-4">{heading}</h3>
                 <div className="row">
                   {track_list.map(item => {
-                    console.log(item.track);
+                    return (
+                      <Track key={item.track.track_id} track={item.track} />
+                    );
                   })}
                 </div>
               </React.Fragment>
