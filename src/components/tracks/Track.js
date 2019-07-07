@@ -25,7 +25,7 @@ function Track(props) {
               {track.album_name}
             </p>
           </div>
-          <Link className="btn btn-dark btn-block" to={""}>
+          <Link className="btn btn-dark btn-block" to={"lyrics/track/:id"}>
             <i className="fas fa-chevron-right" /> View Lyrics
           </Link>
         </div>
