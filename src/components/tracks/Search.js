@@ -7,7 +7,7 @@ class Search extends Component {
     trackTitle: ""
   };
 
-  getLyrics = e => {
+  getLyrics = (dispatch, e) => {
     e.preventDefault();
     axios
       .get(
@@ -18,7 +18,10 @@ class Search extends Component {
         }`
       )
       .then(res => {
-        console.log(res.data);
+        dispatch({
+          type: "SEARCH_TRACK",
+          payload: res.data.message.body.track_list
+        });
       })
       .catch(err => console.log(err));
   };
@@ -31,6 +34,7 @@ class Search extends Component {
     return (
       <Consumer>
         {value => {
+          let { dispatch } = value;
           return (
             <div className="card text-center mb-4 p-4">
               <div className="card-body">
@@ -39,7 +43,7 @@ class Search extends Component {
                   Song
                 </h4>
                 <p className="lead">Get lyrics of any song </p>
-                <form onSubmit={this.getLyrics}>
+                <form onSubmit={this.getLyrics.bind(this, dispatch)}>
                   <div className="form-group">
                     <input
                       type="text"
