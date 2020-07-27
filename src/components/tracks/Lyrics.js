@@ -13,7 +13,7 @@ class Lyrics extends Component {
     axios
       .get(
         `https://cors-anywhere.herokuapp.com/http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${
-          this.props.match.params.id
+        this.props.match.params.id
         }&apikey=${process.env.REACT_APP_MM_KEY}`
       )
       .then(res => {
@@ -34,11 +34,12 @@ class Lyrics extends Component {
     let { lyrics } = this.state;
     return (
       <Consumer>
-        {value => {
+        { value => {
           let { track_list } = value;
           let track = track_list.filter(item => {
             return item.track.track_id === Number(this.props.match.params.id);
           });
+          console.log(track)
           if (
             track === undefined ||
             Object.keys(track).length === 0 ||
@@ -54,34 +55,34 @@ class Lyrics extends Component {
                 </Link>
                 <div className="card ">
                   <h5 className="card-header">
-                    <strong>{track.track_name}</strong> by{" "}
-                    <span className="text-secondary">{track.artist_name}</span>
+                    <strong>{ track.track_name }</strong> by{ " " }
+                    <span className="text-secondary">{ track.artist_name }</span>
                   </h5>
                   <div className="card-body">
-                    <p className="card-text">{lyrics.lyrics_body}</p>
+                    <p className="card-text">{ lyrics.lyrics_body }</p>
                   </div>
                 </div>
                 <ul className="list-group mt-4">
                   <li className="list-group-item">
                     <strong>Album ID: </strong>
-                    {track[0].track.album_id}
+                    { track[0].track.album_id }
                   </li>
                   <li className="list-group-item">
                     <strong>Song Genre: </strong>
-                    {
+                    { track[0].track.primary_genres.music_genre_list.length > 0 &&
                       track[0].track.primary_genres.music_genre_list[0]
                         .music_genre.music_genre_name
                     }
                   </li>
                   <li className="list-group-item">
                     <strong>Explicit Words: </strong>
-                    {Lyrics.explicit ? "Yes" : "No"}
+                    { Lyrics.explicit ? "Yes" : "No" }
                   </li>
                 </ul>
               </div>
             );
           }
-        }}
+        } }
       </Consumer>
     );
   }
